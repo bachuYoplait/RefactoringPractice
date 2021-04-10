@@ -6,23 +6,34 @@ public class Movie {
     public static final int REGULAR = 0;
     public static final int NEW_RELEASE = 1;
     private String _title;
-    private int _priceCode;
+    private Price _price;
 
 
     public Movie(String title, int priceCode) {
         _title = title;
-        _priceCode = priceCode;
+        setPriceCode(priceCode);
 
     }
 
-    public int get_priceCode()
-
-    {
-        return _priceCode;
+    public Price getPriceCode() {
+        return _price;
     }
 
-    public void set_priceCode(int arg) {
-        _priceCode = arg;
+    public void setPriceCode(int arg) {
+
+        switch (arg) {
+            case REGULAR:
+                _price = new RegularPrice();
+                break;
+            case CHILDRENS:
+                _price = new ChildrensPrice();
+                break;
+            case NEW_RELEASE:
+                _price = new NewReleasePrice();
+                break;
+            default:
+                throw new IllegalArgumentException("가격 코드가 잘못됐습니다");
+        }
     }
 
     public String getTitle() {
@@ -30,6 +41,14 @@ public class Movie {
     }
 
 
+    public double getCharge(int daysRented) {
 
+        return _price.getCharge(daysRented);
+    }
+
+    public int getFrequentRenterPoints(int daysRented) {
+        return _price.getFrequentRenterPonts(daysRented);
+
+    }
 
 }

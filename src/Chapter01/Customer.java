@@ -32,38 +32,44 @@ public class Customer {
             double thisAmount = 0;
             Rental each = (Rental) rentals.nextElement();
 
-            switch (each.getMovie().get_priceCode()) {
-                case Movie.REGULAR:
-                    if (each.getDaysRented() > 2)
-                        thisAmount += (each.getDaysRented() - 2) * 1.5;
-                    break;
 
-                case Movie.NEW_RELEASE:
-                    thisAmount += each.getDaysRented() * 3;
-                    break;
-                case Movie.CHILDRENS:
-                    thisAmount += 1.5;
-                    if (each.getDaysRented() > 3)
-                        thisAmount += (each.getDaysRented() - 3) * 1.5;
-                    break;
-            }
+            frequentRenterPoints += each.getFrequentRenterPoints();
 
-            frequentRenterPoints++;
-
-            if ((each.getMovie().get_priceCode() == Movie.NEW_RELEASE) &&
-                    each.getDaysRented() > 1)
-                frequentRenterPoints++;
-
-            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + "\n";
-            totalAmount += thisAmount;
-
+            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
         }
 
-        result += "누적 대여료: " + String.valueOf(totalAmount) + "\n";
-        result += "적립 포인트: " + String.valueOf(frequentRenterPoints);
+        result += "누적 대여료: " + String.valueOf(getTotalCharge()) + "\n";
+        result += "적립 포인트: " + String.valueOf(getTotalFrequentRenterPoints());
         return result;
 
 
+    }
+
+    public double getTotalCharge() {
+
+
+        double result = 0;
+        Enumeration rentals = _rentals.elements();
+
+        while (rentals.hasMoreElements()) {
+
+            Rental each = (Rental) rentals.nextElement();
+            result += each.getCharge();
+        }
+
+        return result;
+    }
+
+    public int getTotalFrequentRenterPoints() {
+        int totalPoint = 0;
+        Enumeration rentals = _rentals.elements();
+
+        while (rentals.hasMoreElements()) {
+
+            totalPoint += ((Rental) rentals.nextElement()).getFrequentRenterPoints();
+        }
+
+        return totalPoint;
     }
 
 
