@@ -2,7 +2,18 @@ package Chapter07;
 
 public class AccountType {
 
-    public boolean isPremium(){
+    private double _interestRate;
+
+    public void setInterestRate(double arg) {
+        this._interestRate = arg;
+
+    }
+
+    public double getInterestRate() {
+        return this._interestRate;
+    }
+
+    public boolean isPremium() {
         return true;
     }
 
