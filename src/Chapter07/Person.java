@@ -4,7 +4,7 @@ public class Person {
 
     private String _name;
     // private String _officeAreaCode;
-    private String _officeNumber;
+   // private String _officeNumber;
 
     private TelephoneNumber _officeTelephone = new TelephoneNumber();//TelephoneNumber와의 링크
 
@@ -35,11 +35,12 @@ public class Person {
         _officeTelephone.setAreaCode(arg);
     }
 
+    /*
     public String getOfficeNumber() {
         return _officeNumber;
     }
 
     public void setOfficeNumber(String arg) {
         _officeNumber = arg;
-    }
+    }*/
 }
